@@ -9,6 +9,7 @@ pluginManagement {
         }
         mavenCentral()
         gradlePluginPortal()
+        maven { url = uri("https://nexus.gluonhq.com/nexus/content/repositories/releases/") }
     }
 }
 plugins {
@@ -19,6 +20,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url = uri("https://nexus.gluonhq.com/nexus/content/repositories/releases/") }
     }
 }
 
