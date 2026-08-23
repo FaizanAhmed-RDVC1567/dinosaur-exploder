@@ -8,8 +8,12 @@ appcompat = "1.8.0"
 material = "1.14.0"
 activityKtx = "1.13.0"
 constraintlayout = "2.2.2"
+# New libs
+fxgl = "25.0.1"
+gluonfx = "1.0.29"
 
 [libraries]
+fxgl = { group = "com.github.almasb", name = "fxgl", version.ref = "fxgl" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -21,4 +25,5 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-
+# Plugin aliases accessible via: plugins { alias(libs.plugins.gluonfx) }
+gluonfx = { id = "com.gluonhq.gluonfx-gradle-plugin", version.ref = "gluonfx" }
