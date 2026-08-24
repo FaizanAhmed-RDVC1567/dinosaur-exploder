@@ -34,6 +34,17 @@ android {
     }
 }
 
+// GluonFX settings for the application
+gluonfx {
+    target = "android" // If working on iOS, this value will be set to that
+    // `mainClass` or `mainClassName` is not required in newer GluonFX versions
+    attachConfig {
+        version = "4.0.25"  // This identifier & value is required in newer versions
+        configuration = "implementation"
+        services("lifecycle", "display", "statusbar", "storage")
+    }
+}
+
 dependencies {
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.appcompat)
