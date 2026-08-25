@@ -1,3 +1,6 @@
+// Diagnostic to see if the `mainClass` attribute is visible when Gradle runs any task
+println(">>> DIAG: project.findProperty('gluonfx.mainClass') = ${project.findProperty("gluonfx.mainClass")}")
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.gluonfx) // Enabling the plugin here too. CHECK IF IT WORKS
@@ -18,7 +21,7 @@ plugins {
 *
 * Something else that is recommended, is to fall back to Gradle version 8.6 instead of 9.0+,
 * as those versions reportedly have better compatibility with GluonFX version 1.0.29*/
-project.extensions.extraProperties["gluonfx.mainClass"] = "com.jvondermarck.dinosaurexploder.Bootstrap"
+//project.extensions.extraProperties["gluonfx.mainClass"] = "com.jvondermarck.dinosaurexploder.Bootstrap"
 
 android {
     namespace = "com.jvondermarck.dinosaurexploder"
@@ -55,7 +58,7 @@ android {
 gluonfx {
     target = "android" // If working on iOS, this value will be set to that
     // `mainClass` is required, the GluonFX plugin's DSL is dynamic and Gradle will pick it up at
-    // runtime
+    // runtime ==> yes, but it should not be declared here in later versions of GluonFX
     // mainClass = "com.jvondermarck.dinosaurexploder.MainActivity"
     attachConfig {
         version = "4.0.25"  // This identifier & value is required in newer versions
