@@ -1,10 +1,19 @@
 // Diagnostic to see if the `mainClass` attribute is visible when Gradle runs any task
-println(">>> DIAG: project.findProperty('gluonfx.mainClass') = ${project.findProperty("gluonfx.mainClass")}")
+println(">>> DIAG: project.findProperty('mainClass') = ${project.findProperty("mainClass")}")
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.gluonfx) // Enabling the plugin here too. CHECK IF IT WORKS
 }
+
+// 1. Fetch the string from gradle.properties
+val extMainClass = project.findProperty("mainClass")?.toString()
+    ?: throw GradleException("Please define 'mainClass' inside your gradle.properties file.")
+
+/* 2. EXPOSE IT TO GLUONFX: Inject the legacy property into the project's extra variables.
+   This fulfills GluonFX's task lookup check behind the scenes and eliminates the error.
+*/
+project.extra["mainClassName"] = extMainClass
 
 /*Some code to prevent Kotlin DSL strict type checking when Gradle attempts to confirm the value
 * of GluonFX's dynamic DSL property called `mainClass`. Gradle simply cannot process this value
