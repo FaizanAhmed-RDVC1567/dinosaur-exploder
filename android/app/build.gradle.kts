@@ -1,6 +1,9 @@
 // Diagnostic to see if the `mainClass` attribute is visible when Gradle runs any task
 println(">>> DIAG: project.findProperty('mainClass') = ${project.findProperty("mainClass")}")
 
+// Diagnostic to see if the `graalVmHome` property is visible when Gradle runs any task
+println(">>> DIAG: project.findProperty('graalVmHome') = ${project.findProperty("graalVmHome")}")
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.gluonfx) // Enabling the plugin here too. CHECK IF IT WORKS
@@ -14,6 +17,10 @@ val extMainClass = project.findProperty("mainClass")?.toString()
    This fulfills GluonFX's task lookup check behind the scenes and eliminates the error.
 */
 project.extra["mainClassName"] = extMainClass
+
+/* Proper method to safe include mobile-spec GraalVM intallation home */
+val extGraalVmHome = project.findProperty("graalVmHome")?.toString()
+    ?: throw GradleException("Please define 'graalVmHome' inside your gradle.properties file.")
 
 /*Some code to prevent Kotlin DSL strict type checking when Gradle attempts to confirm the value
 * of GluonFX's dynamic DSL property called `mainClass`. Gradle simply cannot process this value
@@ -69,6 +76,7 @@ gluonfx {
     // `mainClass` is required, the GluonFX plugin's DSL is dynamic and Gradle will pick it up at
     // runtime ==> yes, but it should not be declared here in later versions of GluonFX
     // mainClass = "com.jvondermarck.dinosaurexploder.MainActivity"
+    graalvmHome = extGraalVmHome
     attachConfig {
         version = "4.0.25"  // This identifier & value is required in newer versions
         configuration = "implementation"
