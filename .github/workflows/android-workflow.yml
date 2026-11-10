@@ -41,6 +41,9 @@ jobs:
       - name: Sync and clean the project dependencies with Gradle
         run: |
           pwd
+          ls -ahm
+          cd ..
+          ls -ahm
           chmod +x gradlew
-          gradlew clean
+          ./gradlew clean
         working-directory: android
