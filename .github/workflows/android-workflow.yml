@@ -10,16 +10,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: actions/checkout@v4
-
-      - name: Set up GraalVM JDK 17 (22.1.0.1-Final)
-        uses: graalvm/setup-graalvm@v1
+      - name: Setup GraalVM (Gluon Build)
+        uses: gluonhq/setup-graalvm@master
         with:
-          version: '22.1.0.1'     # Use the base version string;
-          java-version: '17'      # Optional: Specify the Java version
-          distribution: 'graalvm' # Use 'graalvm for community, 'graalvm-ee' for Enterprise
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          graalvm: '22.1.0.1-Final'
+          jdk: '17'
 
       - name: Verify setup
         run: |
@@ -28,3 +26,9 @@ jobs:
           java --version
           javac -version
           native-image --version
+
+      - name: Sync and clean the project dependencies with Gradle
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          gradlew clean
