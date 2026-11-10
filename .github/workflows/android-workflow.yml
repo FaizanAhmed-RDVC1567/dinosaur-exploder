@@ -42,8 +42,10 @@ jobs:
         run: |
           pwd
           ls -ahm
-          cd ..
-          ls -ahm
+          find . -name gradlew
+          file gradlew
           chmod +x gradlew
+          ls -la gradlew
+          ./gradlew --version
           ./gradlew clean
         working-directory: android
