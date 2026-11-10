@@ -19,7 +19,7 @@ jobs:
           graalvm: '22.1.0.1-Final'
           jdk: '17'
         env:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Verify setup
         run: |
