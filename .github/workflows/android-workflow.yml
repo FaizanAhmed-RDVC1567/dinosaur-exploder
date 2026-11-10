@@ -14,10 +14,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup GraalVM (Gluon Build)
-        uses: gluonhq/setup-graalvm@master
-        with:
-          graalvm: '22.1.0.1-Final'
-          jdk: '17'
+        run: |
+        	wget https://github.com/gluonhq/graal/releases/download/gluon-22.1.0.1-Final/graalvm-svm-java17-linux-gluon-22.1.0.1-Final.tar.gz
+        	
+        	tar -xzf graalvm-svm-java17-linux-gluon-22.1.0.1-Final.tar.gz
+        	
+        	echo "GRAALVM_HOME=$PWD/graalvm-svm-java17-linux-gluon-22.1.0.1-Final" >> $GITHUB_ENV
+        	echo "$PWD/graalvm-svm-java17-linux-gluon-22.1.0.1-Final/bin" >> $GITHUB_PATH
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
