@@ -39,7 +39,8 @@ jobs:
           native-image --version
 
       - name: Sync and clean the project dependencies with Gradle
-        working-directory: android
         run: |
+          pwd
           chmod +x gradlew
           gradlew clean
+        working-directory: android
